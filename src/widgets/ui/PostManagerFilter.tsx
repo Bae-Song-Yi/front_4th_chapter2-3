@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Search } from "lucide-react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../shared/ui"
@@ -15,11 +15,11 @@ const PostManagerFilter = ({ onSearch, onTagSelect, onSortChange }: FilterProps)
   const queryParams = new URLSearchParams(location.search)
 
   // 상태 관리
-  const [searchQuery, setSearchQuery] = React.useState(queryParams.get("search") || "")
-  const [sortBy, setSortBy] = React.useState(queryParams.get("sortBy") || "")
-  const [sortOrder, setSortOrder] = React.useState(queryParams.get("sortOrder") || "asc")
-  const [tags, setTags] = React.useState<Array<{ url: string; slug: string }>>([])
-  const [selectedTag, setSelectedTag] = React.useState(queryParams.get("tag") || "")
+  const [searchQuery, setSearchQuery] = useState(queryParams.get("search") || "")
+  const [sortBy, setSortBy] = useState(queryParams.get("sortBy") || "")
+  const [sortOrder, setSortOrder] = useState(queryParams.get("sortOrder") || "asc")
+  const [tags, setTags] = useState<Array<{ url: string; slug: string }>>([])
+  const [selectedTag, setSelectedTag] = useState(queryParams.get("tag") || "")
 
   // URL 업데이트 함수
   const updateURL = () => {
@@ -42,7 +42,7 @@ const PostManagerFilter = ({ onSearch, onTagSelect, onSortChange }: FilterProps)
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchTags()
   }, [])
 
